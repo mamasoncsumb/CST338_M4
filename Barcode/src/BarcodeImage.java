@@ -18,7 +18,7 @@ public class BarcodeImage implements Cloneable
       
       if(checkSize(str_data))
       {
-         //Find str_data barcode endpoint
+         //Find str_data barcode end point
          for(int i = str_data.length -1; i >= 0; i--)
          {
             for (int j = str_data[0].length() - 1; j >=0; j--)
@@ -55,22 +55,14 @@ public class BarcodeImage implements Cloneable
             }
          }
 
-		 //copy string array and places valid data in bottom left of image_data 2D array
          int colIndex;
          for(int m = barStartRow; m <= barStopRow; m++)
          {
             colIndex = 0;
-         
             for(int n = barStartCol; n <= barStopCol; n++)
             {
-               if (str_data[m].charAt(n) == '*')
-               {
-                  this.setPixel(MAX_HEIGHT -(barStopRow - m) - 1, colIndex++, true);
-               }
-               else if (str_data[m].charAt(n) != '*')
-               {
-                  this.setPixel(MAX_HEIGHT -(barStopRow - m) - 1, colIndex++, false);
-               }
+               this.setPixel(MAX_HEIGHT -(barStopRow - m) - 1, colIndex++, 
+                  (str_data[m].charAt(n) == '*') ? true : false);
             }
          }
       }
@@ -88,6 +80,7 @@ public class BarcodeImage implements Cloneable
          {
             copy.image_data[i] = this.image_data[i].clone();
          }
+
             return copy;
         } 
       catch (CloneNotSupportedException e) 
@@ -97,20 +90,14 @@ public class BarcodeImage implements Cloneable
        }
    }
    
-   //returns specified pixel
+   //validate parameters and return pixel value if good, if not return false
    public boolean getPixel(int row, int col)
    {
-      if (row >= 0 && row < MAX_HEIGHT && col >= 0 && row < MAX_WIDTH )
-      {
-         return this.image_data[row][col];
-      }
-      else
-      {
-         return false;
-      }
+      return  (row >= 0 && row < MAX_HEIGHT && col >= 0 
+         && row < MAX_WIDTH ) ? this.image_data[row][col] : false;
    }
    
-   //sets specified pixel
+   //validates parameters and sets pixel value if good and returns false if not
    public boolean setPixel(int row, int col, boolean value)
    {
       if (row >= 0 && row < MAX_HEIGHT && col >= 0 && row < MAX_WIDTH )
@@ -124,38 +111,21 @@ public class BarcodeImage implements Cloneable
       }
    }
    
-   //verfies the size of the data does not exceed max
+   //verifies string data does not exceed max value data members
    boolean checkSize(String[] data)
    {
-      if (data == null)
-      {
-         return false;
-      }
-      else if (data.length > MAX_HEIGHT || data[0].length() > MAX_WIDTH)
-      {
-         return false;
-      }
-      else
-      {
-         return true;
-      }
+	   return (data.length > MAX_HEIGHT || data[0].length() > 
+	      MAX_WIDTH || data == null) ? false : true;
    }
    
-   //displays image_data
+   //display contents of image_data in 0s and 1s
    void dispalyToConsole()
    {
       for(int i = 0; i < MAX_HEIGHT; i++)
       {
          for (int j = 0; j < MAX_WIDTH; j++)
          {
-            if (this.image_data[i][j])
-            {
-               System.out.print("[1]");
-            }
-            else
-            {
-               System.out.print("[0]");
-            }
+            System.out.print((this.image_data[i][j] == true) ? "[1]" : "[0]");
          }
          System.out.println();
       }
