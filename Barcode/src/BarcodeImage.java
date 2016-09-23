@@ -55,6 +55,7 @@ public class BarcodeImage implements Cloneable
             }
          }
 
+		 //copy string array and places valid data in bottom left of image_data 2D array
          int colIndex;
          for(int m = barStartRow; m <= barStopRow; m++)
          {
@@ -80,8 +81,13 @@ public class BarcodeImage implements Cloneable
       try 
       {
          BarcodeImage copy = (BarcodeImage)super.clone();
-         copy.image_data = (boolean[][])this.image_data.clone();
          
+         //clone performs a shallow copy on the array and requires looping through outer array and cloning inner contents
+         copy.image_data = this.image_data.clone();
+         for(int i = 0; i < this.image_data.length; i++)
+         {
+            copy.image_data[i] = this.image_data[i].clone();
+         }
             return copy;
         } 
       catch (CloneNotSupportedException e) 
@@ -91,6 +97,7 @@ public class BarcodeImage implements Cloneable
        }
    }
    
+   //returns specified pixel
    public boolean getPixel(int row, int col)
    {
       if (row >= 0 && row < MAX_HEIGHT && col >= 0 && row < MAX_WIDTH )
@@ -103,6 +110,7 @@ public class BarcodeImage implements Cloneable
       }
    }
    
+   //sets specified pixel
    public boolean setPixel(int row, int col, boolean value)
    {
       if (row >= 0 && row < MAX_HEIGHT && col >= 0 && row < MAX_WIDTH )
@@ -116,6 +124,7 @@ public class BarcodeImage implements Cloneable
       }
    }
    
+   //verfies the size of the data does not exceed max
    boolean checkSize(String[] data)
    {
       if (data == null)
@@ -132,6 +141,7 @@ public class BarcodeImage implements Cloneable
       }
    }
    
+   //displays image_data
    void dispalyToConsole()
    {
       for(int i = 0; i < MAX_HEIGHT; i++)
@@ -204,7 +214,7 @@ public class BarcodeImage implements Cloneable
             
             myCode2.setPixel(0, 0, true);
             myCode.setPixel(0, 0, false);
-            
+
             System.out.println(myCode2.getPixel(0, 0));
             System.out.println(myCode.getPixel(0, 0));
    }
