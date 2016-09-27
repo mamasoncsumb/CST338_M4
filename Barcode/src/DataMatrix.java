@@ -113,7 +113,34 @@ public class DataMatrix implements BarcodeIO
     
     public boolean translateImageToText()
     {
-       return true;
+      char colChar[] = new char[actualWidth];
+      
+      for (int i = 1; i < actualWidth - 1; i++)
+      {
+         colChar[i] = this.readCharFromCol(i);
+      }
+      
+      String colString = new String(colChar);
+      this.text = colString;
+      
+      return true;
     }
+
+   public char readCharFromCol(int col)
+   {
+      int charValue = 0;
+      int counter = 0;
+      
+      for(int i = BarcodeImage.MAX_HEIGHT - 2; i > BarcodeImage.MAX_HEIGHT - actualHeight; i--)
+      {
+         if(this.image.getPixel(i, col))
+         {
+            charValue = charValue + (int)Math.pow(2, counter);
+         }
+         
+         counter++;
+      }
+      return (char)(charValue);
+   }
 
 }
