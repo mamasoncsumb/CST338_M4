@@ -94,13 +94,13 @@ public class BarcodeImage implements Cloneable
    public boolean getPixel(int row, int col)
    {
       return  (row >= 0 && row < MAX_HEIGHT && col >= 0 
-         && row < MAX_WIDTH ) ? this.image_data[row][col] : false;
+         && col < MAX_WIDTH ) ? this.image_data[row][col] : false;
    }
    
    //validates parameters and sets pixel value if good and returns false if not
    public boolean setPixel(int row, int col, boolean value)
    {
-      if (row >= 0 && row < MAX_HEIGHT && col >= 0 && row < MAX_WIDTH )
+      if (row >= 0 && row < MAX_HEIGHT && col >= 0 && col < MAX_WIDTH )
       {
          this.image_data[row][col] = value;
          return true;
@@ -119,7 +119,7 @@ public class BarcodeImage implements Cloneable
    }
    
    //display contents of image_data in 0s and 1s
-   void dispalyToConsole()
+   void displayToConsole()
    {
       for(int i = 0; i < MAX_HEIGHT; i++)
       {
@@ -178,7 +178,7 @@ public class BarcodeImage implements Cloneable
             };
             
             BarcodeImage myCode = new BarcodeImage(sImageIn_2);
-            myCode.dispalyToConsole();
+            myCode.displayToConsole();
             
             BarcodeImage myCode2 = (BarcodeImage) myCode.clone();
             
