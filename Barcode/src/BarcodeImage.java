@@ -114,8 +114,8 @@ public class BarcodeImage implements Cloneable
    //verifies string data does not exceed max value data members
    boolean checkSize(String[] data)
    {
-	   return (data.length > MAX_HEIGHT || data[0].length() > 
-	      MAX_WIDTH || data == null) ? false : true;
+      return (data.length > MAX_HEIGHT || data[0].length() > 
+         MAX_WIDTH || data == null) ? false : true;
    }
    
    //display contents of image_data in 0s and 1s
@@ -129,63 +129,5 @@ public class BarcodeImage implements Cloneable
          }
          System.out.println();
       }
-   }
-   
-   public static void main(String[] args) 
-   {   
-      String[] sImageIn =
-      {
-               "                                               ",
-               "                                               ",
-               "                                               ",
-               "     * * * * * * * * * * * * * * * * * * * * * ",
-               "     *                                       * ",
-               "     ****** **** ****** ******* ** *** *****   ",
-               "     *     *    ****************************** ",
-               "     * **    * *        **  *    * * *   *     ",
-               "     *   *    *  *****    *   * *   *  **  *** ",
-               "     *  **     * *** **   **  *    **  ***  *  ",
-               "     ***  * **   **  *   ****    *  *  ** * ** ",
-               "     *****  ***  *  * *   ** ** **  *   * *    ",
-               "     ***************************************** ",  
-               "                                               ",
-               "                                               ",
-               "                                               "
-
-            };      
-                  
-               
-            
-            String[] sImageIn_2 =
-            {
-                  "                                          ",
-                  "                                          ",
-                  "* * * * * * * * * * * * * * * * * * *     ",
-                  "*                                    *    ",
-                  "**** *** **   ***** ****   *********      ",
-                  "* ************ ************ **********    ",
-                  "** *      *    *  * * *         * *       ",
-                  "***   *  *           * **    *      **    ",
-                  "* ** * *  *   * * * **  *   ***   ***     ",
-                  "* *           **    *****  *   **   **    ",
-                  "****  *  * *  * **  ** *   ** *  * *      ",
-                  "**************************************    ",
-                  "                                          ",
-                  "                                          ",
-                  "                                          ",
-                  "                                          "
-
-            };
-            
-            BarcodeImage myCode = new BarcodeImage(sImageIn_2);
-            myCode.displayToConsole();
-            
-            BarcodeImage myCode2 = (BarcodeImage) myCode.clone();
-            
-            myCode2.setPixel(0, 0, true);
-            myCode.setPixel(0, 0, false);
-
-            System.out.println(myCode2.getPixel(0, 0));
-            System.out.println(myCode.getPixel(0, 0));
    }
 }
