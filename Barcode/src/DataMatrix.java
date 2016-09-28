@@ -180,11 +180,13 @@ public class DataMatrix implements BarcodeIO
       }
    }
 
+   //displays text to console
    public void displayTextToConsole()
    { 
       System.out.printf("\n***[%s]***\n", this.text);
    }
    
+   //displays full image including all white spaces
    public void displayRawImage()
    {
       for(int i = BarcodeImage.MAX_WIDTH + 2; i > 0; i--)
@@ -211,6 +213,7 @@ public class DataMatrix implements BarcodeIO
       }
    }
 
+   //resets image to blank spaces by setting values to false
    private void clearImage()
    {
       for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
@@ -222,10 +225,10 @@ public class DataMatrix implements BarcodeIO
       }
    }
    
+   //translate image to text by decoding each column
    public boolean translateImageToText()
    {
       char colChar[] = new char[actualWidth - 1];
-      
       for (int i = 1; i < actualWidth - 1; i++)
       {
          colChar[i] = this.readCharFromCol(i);
@@ -235,6 +238,7 @@ public class DataMatrix implements BarcodeIO
       return true;
    }
    
+   //decodes a char from each column in image
    private char readCharFromCol(int col)
    {
       int charValue = 0;
@@ -251,6 +255,7 @@ public class DataMatrix implements BarcodeIO
       return (char)(charValue);
    }
    
+   //converts text to image by translating each character in text
    public boolean generateImageFromText()
    {
       char[] textArray = this.text.toCharArray();
@@ -298,7 +303,8 @@ public class DataMatrix implements BarcodeIO
       return false;
    }
    
-   public boolean writeCharToCol(int col, int code)
+   //takes a character and writes single image column
+   private boolean writeCharToCol(int col, int code)
    {
       //Convert code to binary string
       String binary = Integer.toBinaryString(code);

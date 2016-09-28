@@ -111,22 +111,23 @@ public class BarcodeImage implements Cloneable
    }
    
    //verifies string data does not exceed max value data members
-   boolean checkSize(String[] data)
+   private boolean checkSize(String[] data)
    {
       return (data.length > MAX_HEIGHT || data[0].length() > 
          MAX_WIDTH || data == null) ? false : true;
    }
    
    //display contents of image_data in 0s and 1s
-   void displayToConsole()
+   public void displayToConsole()
    {
       for(int i = 0; i < MAX_HEIGHT; i++)
       {
+         System.out.print("|");
          for (int j = 0; j < MAX_WIDTH; j++)
          {
-            System.out.print((this.image_data[i][j] == true) ? "[1]" : "[0]");
+            System.out.print((this.image_data[i][j] == true) ? "*" : " ");
          }
-         System.out.println();
+         System.out.println("|");
       }
    }
 }
