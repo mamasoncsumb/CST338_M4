@@ -80,7 +80,6 @@ public class BarcodeImage implements Cloneable
          {
             copy.image_data[i] = this.image_data[i].clone();
          }
-
             return copy;
         } 
       catch (CloneNotSupportedException e) 

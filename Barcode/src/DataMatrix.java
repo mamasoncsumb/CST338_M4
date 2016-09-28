@@ -133,7 +133,9 @@ public class DataMatrix implements BarcodeIO
             }
             
             if(spineFound)
+            {
                break;
+            }
          }
       }
 
@@ -148,23 +150,6 @@ public class DataMatrix implements BarcodeIO
             col++;
          }
          row--;
-      }
-   }
-
-   //shifts image down by a specified offset
-   private void shiftImageDown(int offset)
-   {
-      for (int i = 0; i < BarcodeImage.MAX_WIDTH; i++) 
-      {
-         for (int p = BarcodeImage.MAX_HEIGHT; p >= 0; p--)
-         {
-            if (p - offset >= 0) 
-            {
-               Boolean oldPixel = this.image.getPixel(i, p-offset);
-               this.image.setPixel(i, p, oldPixel);
-               this.image.setPixel(i,  p-offset, false);
-            }
-         }
       }
    }
 
@@ -183,9 +168,13 @@ public class DataMatrix implements BarcodeIO
          for (int j = 0; j < actualWidth; j++)
          {
             if(image.getPixel(i, j))
+            {
                System.out.print(BLACK_CHAR);
+            }
             else
+            {
                System.out.print(WHITE_CHAR);
+            }
          }
          System.out.print("|" + "\n");
       }
@@ -195,7 +184,6 @@ public class DataMatrix implements BarcodeIO
    { 
       System.out.printf("\n***[%s]***\n", this.text);
    }
-
    
    public void displayRawImage()
    {
@@ -211,9 +199,13 @@ public class DataMatrix implements BarcodeIO
          for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
          {
             if(image.getPixel(i, j))
+            {
                System.out.print(BLACK_CHAR);
+            }
             else
+            {
                System.out.print(WHITE_CHAR);
+            }
          }
          System.out.print("|" + "\n");
       }
@@ -254,7 +246,6 @@ public class DataMatrix implements BarcodeIO
          {
             charValue = charValue + (int)Math.pow(2, counter);
          }
-         
          counter++;
       }
       return (char)(charValue);
@@ -274,18 +265,20 @@ public class DataMatrix implements BarcodeIO
       {
          this.image.setPixel(i, 0, true);
          if(i % 2 == 1)
+         {
             this.image.setPixel(i, textLength + 1, true);
+         }
          else
+         {
             this.image.setPixel(i, textLength + 1, false);
+         }
       }
-      
       //Write text to image
       for(int i = 0; i < textLength; i++)
       {
          int charValue = (int)textArray[i];
          this.writeCharToCol(i + 1, charValue);
       }
-      
       //Write top Open Borderline
       for(int i = 0; i < textLength + 2; i++)
       {
@@ -298,7 +291,6 @@ public class DataMatrix implements BarcodeIO
             this.image.setPixel(BarcodeImage.MAX_HEIGHT - MAX_ACTUAL_HEIGHT, i, false);
          }
       }
-      
       //Set image width and height
       this.actualWidth = this.computeSignalWidth();
       this.actualHeight = this.computeSignalHeight();
@@ -336,7 +328,6 @@ public class DataMatrix implements BarcodeIO
                image.setPixel(i, col, false);
             }
          }
-         
          //Fill the rest of the column with blanks
          else
          {

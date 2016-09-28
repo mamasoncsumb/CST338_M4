@@ -1,5 +1,5 @@
 
-public class CST338_Assignment4_Datamatrix
+public class Main
 {
 
    public static void main(String[] args)
